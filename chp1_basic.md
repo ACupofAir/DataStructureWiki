@@ -1,7 +1,7 @@
 # Chapter1 Baisc Concept
 
 ## Index
-- [Back to Index](README.md)
+- [Back](README.md)
 - [性能分析](#性能分析)
 
 ## 性能分析
