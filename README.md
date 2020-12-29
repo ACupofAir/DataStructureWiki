@@ -1,5 +1,8 @@
-### About this repo:
-* It's a wiki about datastructure.
-* It's writed by Sunplay.
+## About this repo:
+* Sum:
+ >It's a wiki about datastructure.
+ >It's writed by Sunplay.
+ * Autor:
 
-[Chapter 1](temp.md)
+## Index:
+- [Chapter 1 : Basic Concept](chp1_basic.md)
