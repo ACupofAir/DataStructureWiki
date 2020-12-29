@@ -7,3 +7,4 @@
 ## Index
 
 - [Chapter 1 : Basic Concept](chp1_basic.md)
+- [Chapter 2 : Array]
