@@ -11,6 +11,7 @@
   - [封装](#封装)
     - [访问权限](#访问权限)
     - [友元](#友元)
+  - [重载运算符](#重载运算符)
 
 ## 性能分析
 
@@ -196,3 +197,29 @@ PS: 程序步数(Process Steps)<br>
       }
     ```
 这样B中所有函数都是A的友元函数，都可以访问A的私有变量
+
+## 重载运算符
+  1. "<<"运算符
+  ```cpp
+  ostream& operator<<(ostream& os, Rectangle& r)
+  {
+    os<<"Position is : "<<r.xLow<<" ";
+    os<<r.yLow<<endl;
+    os<<"Height is : "<<r.height<<endl;
+    os<<"Width is : "<<r.width<<endl;
+    return os;
+  }
+  ```
+
+  2. 二元运算符
+
+  ```cpp
+  bool Rectangle::operator==(const Rectangle& s)
+  {
+    if(this == &s) return true;
+    if((xLow == s.xLow) && (yLow == s.yLow)
+      &&(height == s.height) && (width == s.width))
+      return true;
+    else return false;
+  }
+  ```
