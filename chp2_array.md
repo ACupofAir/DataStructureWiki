@@ -8,6 +8,7 @@
     - [多项式加法 It's make no sense.](#多项式加法-its-make-no-sense)
   - [稀疏矩阵(Sparse Matrices)](#稀疏矩阵sparse-matrices)
     - [三元组表示稀疏矩阵](#三元组表示稀疏矩阵)
+    - [稀疏矩阵转置](#稀疏矩阵转置)
   - [字符串(KMP算法)](#字符串kmp算法)
 
 ## 基本概念
@@ -103,8 +104,31 @@ friend class SparseMatrix;
 private:
   int rows, cols, terms, capacity;
   MatrixTerm* smArray;
-}
+};
 ```
+
+#### 稀疏矩阵转置
+> 转置是指对表示矩阵的三元组进行转置而非二维矩阵本身
+> problem 直接对三元组的i，j进行互换后数组顺序不对
+1. 普通转置: 按列遍历，放入新三元组中【由于本身就是按行序排列，所以刚好】
+![](res/TSMatrix_trans_normal.gif)
+
+2. 快速转置: 三次遍历
+   1. 第一次按列遍历原三元组，计算每一列多少元素, 记录在num[col]中
+   2. 第二次遍历num[col], 计算每一列的起始位置，记录在cpot[col]中
+   3. 第三次按列遍历原三元组，将每个元素放在新三元组中，每放一次i列，更新一下cpot[i]
+  ![](res/TSMatrix_fasttrans.gif)
+    在两次遍历后
+      | col | num[col] | cpot[col] |
+      |:---:|:--------:|:---------:|
+      |  1  |    2     |     1     |
+      |  2  |    2     |     3     |
+      |  3  |    2     |     5     |
+      |  4  |    1     |     7     |
+      |  5  |    0     |     8     |
+      |  6  |    1     |     8     |
+      |  7  |    0     |     9     |
+      之后每次读表后，cpot都要更新
 
 
 ### 字符串(KMP算法)
