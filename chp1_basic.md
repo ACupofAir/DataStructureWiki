@@ -1,14 +1,16 @@
 # Chapter1 Baisc Concept
 
-
-* [:back:](README.md)
-* [性能分析](#性能分析)
-  - [空间复杂度](#空间复杂度)
-  - [时间复杂度](#时间复杂度)
-    - [程序步](#程序步)
-    - [计算程序步的两种方法](#计算程序步的两种方法)
-      - [计数器法：引入变量count](#计数器法引入变量count)
-      - [列表法](#列表法)
+  - [:back:](README.md)
+  - [性能分析](#性能分析)
+    - [空间复杂度](#空间复杂度)
+    - [时间复杂度](#时间复杂度)
+      - [程序步](#程序步)
+      - [计算程序步的两种方法](#计算程序步的两种方法)
+        - [计数器法：引入变量count](#计数器法引入变量count)
+        - [列表法](#列表法)
+  - [封装](#封装)
+    - [访问权限](#访问权限)
+    - [友元](#友元)
 
 ## 性能分析
 
@@ -17,10 +19,9 @@
 * 固定空间: 代码空间， 简单变量空间， 常数空间等
 * 可变空间:
 
-  + 结构变量所需空间， 依赖于问题特殊实例
+  + 结构变量所需空间， 依赖于问题特殊实例 + 引用变量所需空间， 依赖于实例特性
   + 引用变量所需空间， 依赖于实例特性
   + 递归栈所需空间，依赖于实例特性
-
 * S(P) = c + S<sub>p</sub>
 
 ### 时间复杂度
@@ -116,6 +117,7 @@ float Sum(float* a, const int n)
 
   count += 3;
 }
+
 ```
 
 ##### 列表法
@@ -124,13 +126,73 @@ s/e: 一条语句每次执行程序步数<br>
 FS: 语句频率(Frequence of Statement)<br>
 PS: 程序步数(Process Steps)<br>
 
+| Row  | s/e  |  FS  |  PS   |
+|:----:|:----:|:----:|:-----:|
+|  1   |  0   |  1   |   0   |
+|  2   |  1   |  1   |   1   |
+|  3   |  1   | n+1  |  n+1  |
+|  4   |  1   |  n   |   n   |
+|  5   |  1   |  1   |   1   |
+|  6   |  0   |  1   |   0   |
+| 总的 | 程序 | 步数 | 2n+ 3 |
 
-| Row  |  s/e  |   FS  |   PS  |
-|:-----:|:-----:|:-----:|:-----:|
-|   1   |   0   |   1   |   0   |
-|   2   |   1   |   1   |   1   |
-|   3   |   1   |  n+1  |  n+1  |
-|   4   |   1   |   n   |   n   |
-|   5   |   1   |   1   |   1   |
-|   6   |   0   |   1   |   0   |
-|  总的 |  程序 |  步数 |  2n+3 |
+## 封装
+
+### 访问权限
+
+* public: 谁都可以
+* protect:  类及其子类
+* private: 只有当前类
+
+### 友元
+* friend:
+
+  + 友元函数
+
+  ```cpp
+    class Node {
+    private:
+        int key;
+        Node* next;
+        /* Other members of Node Class */
+        friend int LinkedList::search();
+        // Only search() of linkedList
+        // can access internal members
+    };
+  ```
+ 这样的话，函数search虽不是Node类的方法， 但可以直接访问Node类的私有变量
+
+  + 友元类
+    ```cpp
+      #include <iostream>
+      class A {
+      private:
+          int a;
+
+      public:
+          A() { a = 0; }
+          friend class B; // Friend Class
+      };
+
+      class B {
+      private:
+          int b;
+
+      public:
+          void showA(A& x)
+          {
+              // Since B is friend of A, it can access
+              // private members of A
+              std::cout << "A::a=" << x.a;
+          }
+      };
+
+      int main()
+      {
+          A a;
+          B b;
+          b.showA(a);
+          return 0;
+      }
+    ```
+这样B中所有函数都是A的友元函数，都可以访问A的私有变量
