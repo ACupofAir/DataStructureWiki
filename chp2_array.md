@@ -9,7 +9,9 @@
   - [稀疏矩阵(Sparse Matrices)](#稀疏矩阵sparse-matrices)
     - [三元组表示稀疏矩阵](#三元组表示稀疏矩阵)
     - [稀疏矩阵转置](#稀疏矩阵转置)
-  - [字符串(KMP算法)](#字符串kmp算法)
+  - [字符串模式匹配(KMP算法)](#字符串模式匹配kmp算法)
+    - [Brute-Force算法](#brute-force算法)
+    - [KMP算法](#kmp算法)
 
 ## 基本概念
 ```cpp
@@ -131,4 +133,80 @@ private:
       之后每次读表后，cpot都要更新
 
 
-### 字符串(KMP算法)
+### 字符串模式匹配(KMP算法)
+
+#### Brute-Force算法
+对主串从头遍历与模式串进行匹配，错误则从主串下一个字符继续
+
+#### KMP算法
+1. Partial Match Table : 部分匹配表，当前位置前缀与后缀的最大共同长度
+2. next数组：PMT右移一位的产物（方便代码而已）
+> *  PMT，next数组只取决于模式串，与主串无关
+> * next[i]表示pat数组前i个元素(注意next[i]是next数组的第i+1个元素)的最大共同长度(即为PMT[i-1])
+> * next[0]可以自定义，如自定义为一个负数以做为开始的标识
+> * 模式匹配时模式串在第j个出错，则j=next[j],这就是此算法灵魂
+3. 失配函数： 类似于next数组<br>
+f(j) = k(p<sub>0</sub>...p<sub>k</sub>与后缀匹配)<br>
+f(j) = -1(没东西匹配时)<br>
+
+4. eg
+
+| pat | j | PMT | next | j  |
+|:---:|:-:|:---:|:----:|:--:|
+|  a  | 0 |  0  |  -1  | -1 |
+|  b  | 1 |  0  |  0   | -1 |
+|  c  | 2 |  0  |  0   | -1 |
+|  a  | 3 |  1  |  0   | 0  |
+|  b  | 4 |  2  |  1   | 1  |
+|  c  | 5 |  3  |  2   | 2  |
+|  a  | 6 |  4  |  3   | 3  |
+|  c  | 7 |  0  |  4   | -1 |
+|  a  | 8 |  1  |  0   | 0  |
+|  b  | 9 |  2  |  1   | 1  |
+
+code
+KMP
+```cpp
+int KMP(char * t, char * p)
+{
+	int i = 0;
+	int j = 0;
+
+	while (i < strlen(t) && j < strlen(p))
+	{
+		if (j == -1 || t[i] == p[j])
+		{
+			i++;
+   		j++;
+		}
+	 	else
+   		j = next[j];
+ 	}
+
+  if (j == strlen(p))
+   return i - j;//主串开始匹配的位置
+  else
+   return -1;
+}
+```
+
+求next
+```cpp
+void getNext(char * p, int * next)
+{
+	next[0] = -1;
+	int i = 0, j = -1;
+
+	while (i < strlen(p))
+	{
+		if (j == -1 || p[i] == p[j])
+		{
+			++i;
+			++j;
+			next[i] = j;
+		}
+		else
+			j = next[j];//也利用了之前信息，前面j个不用在匹配一定是对的
+	}
+}
+```
