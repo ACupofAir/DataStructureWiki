@@ -58,8 +58,8 @@
 
 06. if-else语句：
 
-  ```c++
-  if(expression) statement1;
+  ```cpp
+  if (expression) statement1;
   else statement2;
   ```
 
