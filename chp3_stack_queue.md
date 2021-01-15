@@ -2,6 +2,11 @@
 
 # Chapter3 Stack&Queue
 
+- [Overflow&Underflow](#overflowunderflow)
+- [代数表达式](#代数表达式)
+  - [中缀转后缀](#中缀转后缀)
+- [环形队列](#环形队列)
+
 ## Overflow&Underflow
 
 * Overflow: 满了还要塞
