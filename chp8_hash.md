@@ -23,11 +23,27 @@
 ### 异号 mod
 
 1. 定义
-   $$A \bmod B=B*(\frac{A}{B}-[\frac{A}{B}])$$
+   <!-- $$
+   A \bmod B=B*(\frac{A}{B}-[\frac{A}{B}])
+   $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\n6KXlcgaam.svg"></div>
+
    > 取整是向下取整
+
 2. 实例
-   $$36 \bmod -10 = -10*(\frac{36}{-10}-[\frac{36}{-10}])=36-40=-4$$
-   $$-17 mod 10 = 3$$
+
+   <!-- $$
+   36 \bmod -10 = -10*(\frac{36}{-10}-[\frac{36}{-10}])=36-40=-4
+   $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\OvMrfVUIiL.svg"></div>
+
+   <!-- $$
+   -17 \bmod 10 = 3
+   $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\sNW1U2h5PU.svg"></div>
 3. 总结
 
 - 符号：与除数同号
@@ -56,7 +72,7 @@
 ### 开放地址法
 
 1. 线性探测法（linear probing）
-    > 按$ht[(h(k)+i )\bmod b]$来搜，当遇到第一个未满桶时，搜索停止，插入；若找不到未满桶，则说明哈希表已满，要增加表长
+    > 按<!-- $ht[(h(k)+i )\bmod b]$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\w7zL7YVFUT.svg">来搜，当遇到第一个未满桶时，搜索停止，插入；若找不到未满桶，则说明哈希表已满，要增加表长
 2. 二次探测法
 3. 再散列法
 4. 随机探测法
