@@ -122,13 +122,13 @@ bool InsertBST(BiTree *&T, ElemType e) {
 ### 对森林F遍历
 ![](res/2021-01-15-22-08-29.png)
 * 先序遍历: 等价于先序遍历对应的树T
-> T&F:ABCDEFGHJI
+  > T&F:ABCDEFGHJI
 * 中序遍历: 等价于中序遍历对应的树T
-> T&F:BCDAFEJHIG
+  > T&F:BCDAFEJHIG
 * 后序遍历: 与之对应的树T无自然的对应关系[?]
-> * T: DCBFJIHGEA
-> * F: BCDAFEJHIG
-> * 森林的后序遍历与树的中序一样
+  > * T: DCBFJIHGEA
+  > * F: BCDAFEJHIG
+  > * 森林的后序遍历与树的中序一样
 * 层次遍历: 按序从左到右遍历每一层，与树T遍历结果不一定相同
-> * T: ABECFGDHJI
-> * F: ABCDEFGHIJ
+  > * T: ABECFGDHJI
+  > * F: ABCDEFGHIJ
