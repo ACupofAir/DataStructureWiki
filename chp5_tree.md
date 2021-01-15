@@ -43,8 +43,8 @@
 
 ## Binary Search
 > 使用条件： 顺序排列，连续的储存空间
-* 时间复杂度: $\Theta(n)$
-* 空间复杂度: $\Theta(1)$
+* 时间复杂度: <!-- $\Theta(n)$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\Tl8zIwnJga.svg">
+* 空间复杂度: <!-- $\Theta(1)$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\Ui4DYXd4qJ.svg">
 * code
   ```cpp
   int binary_search(const int arr[], int start, int end, int khey) {
@@ -97,7 +97,7 @@ bool InsertBST(BiTree *&T, ElemType e) {
 
 ### 删除
 > * 删除节点*p
-> * 时间复杂度$\mathcal{o}(h)$
+> * 时间复杂度<!-- $\mathcal{o}(h)$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\v5wdJlzIdI.svg">
 #### 叶子节点
 * 直接删掉，令pp指向null即可
 #### 有PL/PR的节点

@@ -1,18 +1,22 @@
 [:car:...](README.md)
 
 # Chapter2 Arrays
+> * 只考kmp
+> * 失败函数计算
+> * 纸上模拟kmp算法过程
+> * 证明kmp的正确性 
 
 - [基本概念](#基本概念)
 - [数组应用](#数组应用)
   - [多项式(Polynomial)](#多项式polynomial)
     - [多项式的表示](#多项式的表示)
-    - [多项式加法 It's make no sense.](#多项式its-make-no-sense)
+    - [多项式加法 It's make no sense.](#多项式加法-its-make-no-sense)
   - [稀疏矩阵(Sparse Matrices)](#稀疏矩阵sparse-matrices)
     - [三元组表示稀疏矩阵](#三元组表示稀疏矩阵)
     - [稀疏矩阵转置](#稀疏矩阵转置)
-  - [字符串模式匹配(KMP 算法)](#字符串模式匹配kmp算法)
-    - [Brute-Force 算法](#brute-force算法)
-    - [KMP 算法](#kmp算法)
+  - [字符串模式匹配(KMP 算法)](#字符串模式匹配kmp-算法)
+    - [Brute-Force 算法](#brute-force-算法)
+    - [KMP 算法](#kmp-算法)
 
 ## 基本概念
 
