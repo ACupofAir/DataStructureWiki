@@ -1,5 +1,6 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 [:car:...](README.md)
-
+ 
 # Chapter8 Hash
 - [Hash Function](#hash-function)
   - [异号 mod](#异号-mod)
