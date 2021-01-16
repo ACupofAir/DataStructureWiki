@@ -130,10 +130,18 @@ int choose(int* dist)
 
 3. 计算活动的最早最迟时间
    若a<sub>i</sub>用边<k,l>表示，则
-   $$ 
-   e[i] = ee[k]\\
+
+   <!-- $$ 
+   e[i] = ee[k]
+   $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\ynu6PWrclj.svg"></div>
+
+   <!-- $$
    l[i] = le[l] - a_i
-   $$
+   $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\vpFy1chNfk.svg"></div>
 
 4. 缩短工期
    > 只有缩短在所有关键路径上公用的关键活动才能缩短工期
@@ -142,10 +150,18 @@ int choose(int* dist)
 ![](res/2021-01-16-15-45-40.png)
 
     eg: 
-    $$
-    ee[4] = \max(ee[3]+3,ee[2]+3) = \max(15,9) = 15\\
-    le[3] = \min(le[6]-4,le[4]-3,le[5]-4) = \min(12,12,15) = 12
-    $$
+
+  <!-- $$
+  ee[4] = \max(ee[3]+3,ee[2]+3) = \max(15,9) = 15
+  $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\b43b7NgT05.svg"></div>
+
+  <!-- $$
+  le[3] = \min(le[6]-4,le[4]-3,le[5]-4) = \min(12,12,15) = 12
+  $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\OasB6V5YBu.svg"></div>
 
     | i | ee[i] | le[i] |
     |:-:|:-----:|:-----:|
@@ -161,10 +177,18 @@ int choose(int* dist)
     | 9 |  23   |  23   |
 
     eg: 
-    $$
-    e[3] = ee[1] = 5\\
-    l[1]=le[1]-a_1=9-5=4
-    $$
+
+<!-- $$
+e[3] = ee[1] = 5
+$$ --> 
+
+<div align="center"><img style="background: white;" src="svg\br6AmvjPhC.svg"></div>
+
+ <!-- $$
+ l[1]=le[1]-a_1=9-5=4
+ $$ --> 
+
+<div align="center"><img style="background: white;" src="svg\YuHWF1xo5B.svg"></div>
 
     | a<sub>i</sub> |  e[i]  |  l[i]  |
     |:-------------:|:------:|:------:|
