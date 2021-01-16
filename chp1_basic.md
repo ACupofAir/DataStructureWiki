@@ -30,6 +30,10 @@
 
 ### 时间复杂度
 
+#### 定义
+* <!-- $f(n)=O(g(n))$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\fx4y2QQTZq.svg">: g(n) 是 f(n)的上界
+* <!-- $f(n)=\Omega(g(n))$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\WA7ETz3NWc.svg">: g(n) 是 f(n)的下界
+* <!-- $f(n)=\Theta(g(n))$ --> <img style="transform: translateY(0.1em); background: white;" src="svg\b9qDgyu2p5.svg">: g(n) 即是 f(n)的上界，又是f(n)
 #### 程序步
 
 在语法或语义上有意义的程序片段，且该片段的执行时间不依赖于实例特性
