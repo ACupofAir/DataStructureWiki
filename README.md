@@ -14,4 +14,5 @@
 - [Chpater 6 : Graph](chp6_graph.md)
 - [Chpater 7 : Sort](chp7_sort.md)
 - [Chpater 8 : Hash](chp8_hash.md)
-- [Chpater 9 : B-Tree](chp9_b_tree.md)
+- [Chpater 9 : AVL](chp9_avl.md)
+- [Chpater 10 : B-Tree](chp10_b_tree.md)
