@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Chapter6 Graph</title>
+        <style>
+/* From extension bierner.markdown-checkbox */
+.contains-task-list {
+    padding-left: 0;
+}
+
+.contains-task-list li {
+    margin-left: 24px;
+}
+
+.contains-task-list .task-list-item {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.contains-task-list .contains-task-list {
+    padding-left: 20px;
+} 
+/* From extension bierner.markdown-preview-github-styles */
+body {
+    background: white;
+}
+
+.vscode-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid transparent;
+}
+
+.vscode-body blockquote {
+    background-color: initial;
+}
+
+.vscode-body pre {
+    color: initial;
+    background: #f7f7f7 !important;
+}
+
+.vscode-body code {
+    color: inherit;
+}
+
+.vscode-body pre code {
+    color: initial;
+}
+
+.vscode-body code > div {
+    background: none
+}
+
+.vscode-body table th,
+.vscode-body table td {
+    border: 1px solid #ddd !important;
+}
+
+.vscode-body.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-body.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-body.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-body p,
+.vscode-body blockquote,
+.vscode-body ul,
+.vscode-body ol,
+.vscode-body dl,
+.vscode-body table,
+.vscode-body pre {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+body.vscode-body::-webkit-scrollbar {
+    background-color: white;
+}
+body.vscode-body::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.4);
+}
+body.vscode-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(100, 100, 100, 0.7);
+}
+
+/* Generated from 'node_modules/github-markdown-css/github-markdown.css' */
+@font-face {
+  font-family: octicons-link;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.vscode-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: #24292e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.vscode-body .pl-c {
+  color: #6a737d;
+}
+
+.vscode-body .pl-c1,
+.vscode-body .pl-s .pl-v {
+  color: #005cc5;
+}
+
+.vscode-body .pl-e,
+.vscode-body .pl-en {
+  color: #6f42c1;
+}
+
+.vscode-body .pl-smi,
+.vscode-body .pl-s .pl-s1 {
+  color: #24292e;
+}
+
+.vscode-body .pl-ent {
+  color: #22863a;
+}
+
+.vscode-body .pl-k {
+  color: #d73a49;
+}
+
+.vscode-body .pl-s,
+.vscode-body .pl-pds,
+.vscode-body .pl-s .pl-pse .pl-s1,
+.vscode-body .pl-sr,
+.vscode-body .pl-sr .pl-cce,
+.vscode-body .pl-sr .pl-sre,
+.vscode-body .pl-sr .pl-sra {
+  color: #032f62;
+}
+
+.vscode-body .pl-v,
+.vscode-body .pl-smw {
+  color: #e36209;
+}
+
+.vscode-body .pl-bu {
+  color: #b31d28;
+}
+
+.vscode-body .pl-ii {
+  color: #fafbfc;
+  background-color: #b31d28;
+}
+
+.vscode-body .pl-c2 {
+  color: #fafbfc;
+  background-color: #d73a49;
+}
+
+.vscode-body .pl-c2::before {
+  content: "^M";
+}
+
+.vscode-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #22863a;
+}
+
+.vscode-body .pl-ml {
+  color: #735c0f;
+}
+
+.vscode-body .pl-mh,
+.vscode-body .pl-mh .pl-en,
+.vscode-body .pl-ms {
+  font-weight: bold;
+  color: #005cc5;
+}
+
+.vscode-body .pl-mi {
+  font-style: italic;
+  color: #24292e;
+}
+
+.vscode-body .pl-mb {
+  font-weight: bold;
+  color: #24292e;
+}
+
+.vscode-body .pl-md {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+
+.vscode-body .pl-mi1 {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+
+.vscode-body .pl-mc {
+  color: #e36209;
+  background-color: #ffebda;
+}
+
+.vscode-body .pl-mi2 {
+  color: #f6f8fa;
+  background-color: #005cc5;
+}
+
+.vscode-body .pl-mdr {
+  font-weight: bold;
+  color: #6f42c1;
+}
+
+.vscode-body .pl-ba {
+  color: #586069;
+}
+
+.vscode-body .pl-sg {
+  color: #959da5;
+}
+
+.vscode-body .pl-corl {
+  text-decoration: underline;
+  color: #032f62;
+}
+
+.vscode-body .octicon {
+  display: inline-block;
+  vertical-align: text-top;
+  fill: currentColor;
+}
+
+.vscode-body a {
+  background-color: transparent;
+}
+
+.vscode-body a:active,
+.vscode-body a:hover {
+  outline-width: 0;
+}
+
+.vscode-body strong {
+  font-weight: inherit;
+}
+
+.vscode-body strong {
+  font-weight: bolder;
+}
+
+.vscode-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.vscode-body img {
+  border-style: none;
+}
+
+.vscode-body code,
+.vscode-body kbd,
+.vscode-body pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.vscode-body hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+.vscode-body input {
+  font: inherit;
+  margin: 0;
+}
+
+.vscode-body input {
+  overflow: visible;
+}
+
+.vscode-body [type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.vscode-body * {
+  box-sizing: border-box;
+}
+
+.vscode-body input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.vscode-body a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.vscode-body a:hover {
+  text-decoration: underline;
+}
+
+.vscode-body strong {
+  font-weight: 600;
+}
+
+.vscode-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+}
+
+.vscode-body hr::before {
+  display: table;
+  content: "";
+}
+
+.vscode-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.vscode-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.vscode-body td,
+.vscode-body th {
+  padding: 0;
+}
+
+.vscode-body h1,
+.vscode-body h2,
+.vscode-body h3,
+.vscode-body h4,
+.vscode-body h5,
+.vscode-body h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body h1 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.vscode-body h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.vscode-body h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.vscode-body h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.vscode-body h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.vscode-body h6 {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.vscode-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.vscode-body blockquote {
+  margin: 0;
+}
+
+.vscode-body ul,
+.vscode-body ol {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body ol ol,
+.vscode-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.vscode-body ul ul ol,
+.vscode-body ul ol ol,
+.vscode-body ol ul ol,
+.vscode-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.vscode-body dd {
+  margin-left: 0;
+}
+
+.vscode-body code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.vscode-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.vscode-body .octicon {
+  vertical-align: text-bottom;
+}
+
+.vscode-body .pl-0 {
+  padding-left: 0 !important;
+}
+
+.vscode-body .pl-1 {
+  padding-left: 4px !important;
+}
+
+.vscode-body .pl-2 {
+  padding-left: 8px !important;
+}
+
+.vscode-body .pl-3 {
+  padding-left: 16px !important;
+}
+
+.vscode-body .pl-4 {
+  padding-left: 24px !important;
+}
+
+.vscode-body .pl-5 {
+  padding-left: 32px !important;
+}
+
+.vscode-body .pl-6 {
+  padding-left: 40px !important;
+}
+
+.vscode-body::before {
+  display: table;
+  content: "";
+}
+
+.vscode-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.vscode-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.vscode-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.vscode-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.vscode-body .anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.vscode-body .anchor:focus {
+  outline: none;
+}
+
+.vscode-body p,
+.vscode-body blockquote,
+.vscode-body ul,
+.vscode-body ol,
+.vscode-body dl,
+.vscode-body table,
+.vscode-body pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.vscode-body hr {
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e1e4e8;
+  border: 0;
+}
+
+.vscode-body blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
+}
+
+.vscode-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.vscode-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.vscode-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: solid 1px #c6cbd1;
+  border-bottom-color: #959da5;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #959da5;
+}
+
+.vscode-body h1,
+.vscode-body h2,
+.vscode-body h3,
+.vscode-body h4,
+.vscode-body h5,
+.vscode-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.vscode-body h1 .octicon-link,
+.vscode-body h2 .octicon-link,
+.vscode-body h3 .octicon-link,
+.vscode-body h4 .octicon-link,
+.vscode-body h5 .octicon-link,
+.vscode-body h6 .octicon-link {
+  color: #1b1f23;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.vscode-body h1:hover .anchor,
+.vscode-body h2:hover .anchor,
+.vscode-body h3:hover .anchor,
+.vscode-body h4:hover .anchor,
+.vscode-body h5:hover .anchor,
+.vscode-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.vscode-body h1:hover .anchor .octicon-link,
+.vscode-body h2:hover .anchor .octicon-link,
+.vscode-body h3:hover .anchor .octicon-link,
+.vscode-body h4:hover .anchor .octicon-link,
+.vscode-body h5:hover .anchor .octicon-link,
+.vscode-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.vscode-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.vscode-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.vscode-body h3 {
+  font-size: 1.25em;
+}
+
+.vscode-body h4 {
+  font-size: 1em;
+}
+
+.vscode-body h5 {
+  font-size: 0.875em;
+}
+
+.vscode-body h6 {
+  font-size: 0.85em;
+  color: #6a737d;
+}
+
+.vscode-body ul,
+.vscode-body ol {
+  padding-left: 2em;
+}
+
+.vscode-body ul ul,
+.vscode-body ul ol,
+.vscode-body ol ol,
+.vscode-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body li {
+  word-wrap: break-all;
+}
+
+.vscode-body li>p {
+  margin-top: 16px;
+}
+
+.vscode-body li+li {
+  margin-top: 0.25em;
+}
+
+.vscode-body dl {
+  padding: 0;
+}
+
+.vscode-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.vscode-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.vscode-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+
+.vscode-body table th {
+  font-weight: 600;
+}
+
+.vscode-body table th,
+.vscode-body table td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.vscode-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+.vscode-body table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.vscode-body img {
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: #fff;
+}
+
+.vscode-body img[align=right] {
+  padding-left: 20px;
+}
+
+.vscode-body img[align=left] {
+  padding-right: 20px;
+}
+
+.vscode-body code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
+}
+
+.vscode-body pre {
+  word-wrap: normal;
+}
+
+.vscode-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.vscode-body .highlight {
+  margin-bottom: 16px;
+}
+
+.vscode-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.vscode-body .highlight pre,
+.vscode-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+}
+
+.vscode-body pre code {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.vscode-body .full-commit .btn-outline:not(:disabled):hover {
+  color: #005cc5;
+  border-color: #005cc5;
+}
+
+.vscode-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: solid 1px #d1d5da;
+  border-bottom-color: #c6cbd1;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #c6cbd1;
+}
+
+.vscode-body :checked+.radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #0366d6;
+}
+
+.vscode-body .task-list-item {
+  list-style-type: none;
+}
+
+.vscode-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.vscode-body .task-list-item input {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.vscode-body hr {
+  border-bottom-color: #eee;
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, "微软雅黑“,BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <p><a href="README.html">🚗...</a></p>
+<h1 id="chapter6-graph">Chapter6 Graph</h1>
+<ul>
+<li><a href="#represetations">Represetations</a>
+<ul>
+<li><a href="#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5adjancency-matrices">邻接矩阵(adjancency matrices)</a></li>
+<li><a href="#%E9%82%BB%E6%8E%A5%E8%A1%A8adjancency-list">邻接表(adjancency list)</a>
+<ul>
+<li><a href="#%E9%80%86%E9%82%BB%E6%8E%A5%E8%A1%A8inverse-adjancency-list">逆邻接表(inverse adjancency list)</a></li>
+<li><a href="#%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8">十字链表</a></li>
+</ul>
+</li>
+<li><a href="#%E9%82%BB%E6%8E%A5%E5%A4%9A%E8%A1%A8adjacency-multilist">邻接多表(adjacency multilist)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">基本操作</a>
+<ul>
+<li><a href="#%E9%81%8D%E5%8E%86">遍历</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5">插入</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4">删除</a></li>
+</ul>
+</li>
+<li><a href="#shortest-paths">Shortest Paths</a>
+<ul>
+<li><a href="#dijkstra">Dijkstra</a></li>
+</ul>
+</li>
+<li><a href="#aoe">AOE</a></li>
+</ul>
+<h2 id="represetations">Represetations</h2>
+<h3 id="邻接矩阵adjancency-matrices">邻接矩阵(adjancency matrices)</h3>
+<blockquote>
+<p>Too easy...</p>
+</blockquote>
+<h3 id="邻接表adjancency-list">邻接表(adjancency list)</h3>
+<blockquote>
+<p>只关心节点的出度,链表里的是以i指向的节点</p>
+</blockquote>
+<h4 id="逆邻接表inverse-adjancency-list">逆邻接表(inverse adjancency list)</h4>
+<blockquote>
+<p>只关心节点的入度，链表里的是指向i的节点</p>
+</blockquote>
+<h4 id="十字链表">十字链表</h4>
+<blockquote>
+<ul>
+<li>
+<p>尤适用于有向图</p>
+</li>
+<li>
+<p>头节点</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">data</th>
+<th style="text-align:center">firstIn</th>
+<th style="text-align:center">firstOut</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</li>
+<li>
+<p>一般节点</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">head</th>
+<th style="text-align:center">tail</th>
+<th style="text-align:center">行链接</th>
+<th style="text-align:center">列链接</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<ul>
+<li>行链接列表为邻接表，关心出度</li>
+<li>列链接列表为逆邻接表，关心入度
+<img src="file:///c:\Users\offnet\git\DataStructureWiki\res\2021-01-16-10-15-57.png" alt=""></li>
+</ul>
+</blockquote>
+<h3 id="邻接多重表adjacency-multilist">邻接多重表(adjacency multilist)</h3>
+<blockquote>
+<ul>
+<li>
+<p>适用于无向图，解决了空间的浪费，方便了遍历，插入，删除</p>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">m</th>
+<th style="text-align:center">v<sub>1</sub></th>
+<th style="text-align:center">v<sub>2</sub></th>
+<th style="text-align:center">link1</th>
+<th style="text-align:center">link2</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</li>
+<li>
+<p>每条边只有一个节点表示，但这个节点同时在两个链表里</p>
+</li>
+<li>
+<p>m:标记是否被检查过</p>
+</li>
+<li>
+<p>link1: 对应v<sub>1</sub>相关的边</p>
+</li>
+<li>
+<p>link2: 对应v<sub>2</sub>相关的边</p>
+</li>
+<li>
+<p>link时就近原则就不会乱</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="基本操作">基本操作</h2>
+<h3 id="构造">构造</h3>
+<pre><code class="language-cpp"><div><span class="hljs-comment">//创建有向图的十字链表</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">CreatDG</span><span class="hljs-params">(OLGraph &amp;G, <span class="hljs-keyword">int</span> vexnum, <span class="hljs-keyword">int</span> arcnum)</span>
+</span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; vexnum; i++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Please enter %d data:&quot;</span>, i+<span class="hljs-number">1</span>);
+        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot; %c&quot;</span>, &amp;G.xlist[i].data);                                        
+         <span class="hljs-comment">//输入顶点值</span>
+        G.xlist[i].nodenum = i;                                                
+         <span class="hljs-comment">//记录顶点的位置</span>
+        G.xlist[i].firstin = <span class="hljs-literal">NULL</span>;                                             
+         <span class="hljs-comment">//初始化指针</span>
+        G.xlist[i].firstout = <span class="hljs-literal">NULL</span>;
+    }
+
+    <span class="hljs-keyword">char</span> v1, v2;                                                               
+     <span class="hljs-comment">//一条弧的两个顶点</span>
+    <span class="hljs-keyword">int</span> i, j;                                                                  
+     <span class="hljs-comment">//弧尾位置，弧头位置</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; G.arcnum; k++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Please enter %d arc(tail -&gt; head): &quot;</span>, k + <span class="hljs-number">1</span>);
+        scanf_s(<span class="hljs-string">&quot; %c&quot;</span>, &amp;v1);                                                   
+         <span class="hljs-comment">//输入弧的第一个顶点，这里%c前面必须要有一个空格！</span>
+        getchar();                                                             
+         <span class="hljs-comment">//把输入的空格读走</span>
+        v2 = getchar();                                                        
+         <span class="hljs-comment">//输入弧的第二个顶点</span>
+        i = LocateVex(G, v1);                                                  
+         <span class="hljs-comment">//获取弧的第一个节点位置</span>
+        j = LocateVex(G, v2);                                                  
+         <span class="hljs-comment">//获取弧的第二个节点位置</span>
+        ArcBox *p = (ArcBox *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(ArcBox));                          
+         <span class="hljs-comment">//分配弧结点空间</span>
+        p-&gt;tailvex = i;     p-&gt;tlink = G.xlist[i].firstout;                    
+         <span class="hljs-comment">//i放进tailvex,tlink(尾巴出去firstout)</span>
+        p-&gt;headvex = j;     p-&gt;hlink = G.xlist[j].firstin;                     
+         <span class="hljs-comment">//j放进headvex,hlink(头进来firstin)</span>
+        G.xlist[j].firstin = G.xlist[i].firstout = p;                          
+         <span class="hljs-comment">//入弧与出弧的插入（数组的firstin firstout有了指向）</span>
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<h3 id="遍历">遍历</h3>
+<blockquote>
+<p>尤指编个小程序（十字链表）</p>
+</blockquote>
+<pre><code class="language-cpp"><div><span class="hljs-comment">/******************************************************
+**  DFS深度优先遍历
+*******************************************************/</span>
+<span class="hljs-keyword">bool</span> DFSvisted[<span class="hljs-number">20</span>];                                           
+  <span class="hljs-comment">//这里定义最多有20个结点</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DFSTraverse</span><span class="hljs-params">(OLGraph &amp;G)</span>
+</span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++)                        
+      <span class="hljs-comment">//先把每个结点都标记为假，没有访问过</span>
+        DFSvisted[i] = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++) {
+        <span class="hljs-keyword">if</span> (!DFSvisted[i])                                    
+          <span class="hljs-comment">//对没有访问的结点，按深度优先遍历</span>
+            DFS(G, i);                          
+    }
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DFS</span><span class="hljs-params">(OLGraph &amp;G, <span class="hljs-keyword">int</span> v)</span>
+</span>{
+    DFSvisted[v] = <span class="hljs-literal">true</span>;                                      
+      <span class="hljs-comment">//访问结点标识--真</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c\t&quot;</span>,G.xlist[v].data);
+    ArcBox *DFStemp = G.xlist[v].firstout;                    
+      <span class="hljs-comment">//用DFStemp来存储该节点的第一个出去的弧</span>
+    <span class="hljs-keyword">while</span> (DFStemp)
+    {
+        <span class="hljs-keyword">if</span> (!DFSvisted[DFStemp-&gt;headvex])                     
+          <span class="hljs-comment">//访问此结点第一个出去的弧</span>
+            DFS(G, DFStemp-&gt;headvex);
+        DFStemp = DFStemp-&gt;tlink;                             
+          <span class="hljs-comment">//该结点还有指向其他的弧</span>
+    }
+}
+</div></code></pre>
+<pre><code class="language-cpp"><div><span class="hljs-comment">/******************************************************
+**  BFS广度优先遍历
+*******************************************************/</span>
+<span class="hljs-keyword">bool</span> BFSvisted[<span class="hljs-number">20</span>];                                                    
+ <span class="hljs-comment">//这里定义最多有20个结点</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BFSTraverse</span><span class="hljs-params">(OLGraph &amp;G)</span>
+</span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++)                                 
+     <span class="hljs-comment">//先把每个结点都标记为假，没有访问过</span>
+        BFSvisted[i] = <span class="hljs-literal">false</span>;
+    LinkQueue Q;                                                       
+     <span class="hljs-comment">//初始化队列</span>
+    InitQueue(Q);
+    ArcBox *BFStemp;                                                   
+    <span class="hljs-keyword">char</span> HeadQueue;                                                    
+     <span class="hljs-comment">//出队元素（队头）第一次会出现一进队就出队</span>
+    <span class="hljs-keyword">int</span> headnum = <span class="hljs-number">0</span>;                                                   
+     <span class="hljs-comment">//队头元素的位置，才好找到十字链表的下一个</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; G.vexnum; i++) {
+        <span class="hljs-keyword">if</span> (!BFSvisted[i]) {
+            BFSvisted[i] = <span class="hljs-literal">true</span>;
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c\t&quot;</span>, G.xlist[i].data);                           
+             <span class="hljs-comment">//访问元素</span>
+            EnQueue(Q, G.xlist[i].data);                               
+             <span class="hljs-comment">//把访问的元素都入队</span>
+            <span class="hljs-keyword">while</span> (!QueueEmpty(Q)) {
+                DeQueue(Q, HeadQueue);                                 
+                 <span class="hljs-comment">//出队</span>
+                <span class="hljs-comment">//printf(&quot;出队:%c\t&quot;, DeQueue(Q, HeadQueue));</span>
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; G.vexnum; j++) {
+                    <span class="hljs-keyword">if</span> (G.xlist[j].data == HeadQueue)
+                        headnum = G.xlist[j].nodenum;                  
+                         <span class="hljs-comment">//获取队头位置</span>
+                }
+                BFStemp = G.xlist[headnum].firstout;                   
+                 <span class="hljs-comment">//用BFStemp来存储该节点的第一个出去的弧</span>
+                <span class="hljs-keyword">while</span> (BFStemp) {
+                    <span class="hljs-keyword">if</span> (!BFSvisted[BFStemp-&gt;headvex]) {
+                        BFSvisted[BFStemp-&gt;headvex] = <span class="hljs-literal">true</span>;            
+                         <span class="hljs-comment">//把结点都标记为真</span>
+                        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c\t&quot;</span>, G.xlist[BFStemp-&gt;headvex].data);
+                         <span class="hljs-comment">//访问元素</span>
+                        EnQueue(Q, G.xlist[BFStemp-&gt;headvex].data);    
+                         <span class="hljs-comment">//把访问的元素都入队</span>
+                    }
+                    BFStemp = BFStemp-&gt;tlink;
+                }
+            }
+        }
+    }
+
+</div></code></pre>
+<!--TODO: Maybe oneday, maybe none day.  -->
+<h3 id="插入">插入</h3>
+<h3 id="删除">删除</h3>
+<h2 id="shortest-paths">Shortest Paths</h2>
+<h3 id="迪杰斯特拉算法dijkstra">迪杰斯特拉算法<a href="https://zh.wikipedia.org/wiki/%E6%88%B4%E5%85%8B%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95">Dijkstra</a></h3>
+<blockquote>
+<ul>
+<li>贪婪算法的计算过程，证明， 举例哪些情形下不好用</li>
+<li>约束条件： 没有负边</li>
+<li>以类似于广搜解决了单源任意目的地最短路径问题</li>
+</ul>
+</blockquote>
+<ul>
+<li>复杂度</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">算法</th>
+<th style="text-align:center">最坏时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">使用邻接表的戴克斯特拉算法</td>
+<td style="text-align:center"><!-- $\mathcal{O}(V^2)$ --> <img style="transform: translateY(0.1em); background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\fCkYpDBWTp.svg"></td>
+</tr>
+<tr>
+<td style="text-align:center">使用二叉堆优化的戴克斯特拉算法</td>
+<td style="text-align:center"><!-- $\mathcal{O}((E+V)\log(V))$ --> <img style="transform: translateY(0.1em); background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\EescEh5jal.svg"></td>
+</tr>
+<tr>
+<td style="text-align:center">使用斐波那契堆优化的戴克斯特拉算法</td>
+<td style="text-align:center"><!-- $\mathcal{O} (E+V\log(V))$ --> <img style="transform: translateY(0.1em); background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\dhvyEIva6s.svg"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>算法</p>
+<ol>
+<li>用一个数组L来标记是否为最短路径</li>
+<li>用dist数组存储路径</li>
+<li>每次遍历dist数组找出最短路径，标记它，并以它对未标记点做松弛操作</li>
+</ol>
+</li>
+<li>
+<p>code</p>
+</li>
+</ul>
+<pre><code class="language-cpp"><div><span class="hljs-comment">// n is the num of vertexs, v is the algorithm&#x27;s start vertex</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dijkstra</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> v)</span>
+</span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
+  {
+    L[i] = <span class="hljs-literal">false</span>;
+    dist[i] = length[v][i];
+  }
+  <span class="hljs-comment">//for lenght[v][v] = 0; so dist[v]=0 must be the shortest one</span>
+  L[v] = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n<span class="hljs-number">-2</span>; i++)
+  {
+    <span class="hljs-keyword">int</span> u = choose(dist);<span class="hljs-comment">//dist[u] is the shortest in dist except those mark as true </span>
+    L[u] = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> w = <span class="hljs-number">0</span>; w &lt; n; w++)
+    {
+      <span class="hljs-keyword">if</span>(!L[w]&amp;&amp;dist[u]+length[u][w]&lt;dist[w])
+      {
+        dist[w] = dist[u]+length[u][w];
+      }
+    }
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">choose</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* dist)</span>
+</span>{
+  <span class="hljs-keyword">int</span> k=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=n;++j)<span class="hljs-comment">//找出距离最近的点</span>
+    {
+      <span class="hljs-keyword">if</span>(!v[j]&amp;&amp;(k==<span class="hljs-number">0</span>||dis[j]&lt;dis[k]))
+        k=j;
+    }
+  <span class="hljs-keyword">return</span> k;
+}
+</div></code></pre>
+<h2 id="aoe">AOE</h2>
+<blockquote>
+<p>Activity on Edge network(用边来表示活动，顶点表示事件即任务完成的标志)
+两个表，每个事件开始的最早最迟时间</p>
+</blockquote>
+<ul>
+<li>关键路径： 工程完成所需最短时间是最长路径的长度，最长路径叫做关键路径</li>
+<li>事件i最早发生时间： 起点0到顶点i的最长路径长度</li>
+<li>事件i最迟开始时间： 不延长工程持续时间的前提下，每个活动a<sub>i</sub>最迟开始时间</li>
+<li>关键活动： e(i) = l(i)的活动</li>
+<li>拓扑排序： 若i是j的前驱，则在这种排序里i一定在j前</li>
+</ul>
+<h3 id="算法">算法</h3>
+<blockquote>
+<p>按拓扑顺序先计算时间的最早最迟时间，然后计算活动的最早最迟时间，从而确定关键活动</p>
+</blockquote>
+<ol>
+<li>
+<p>向前步骤计算事件最早发生事件ee[j]</p>
+<blockquote>
+<p>ee[0] = 0; ee[j] = max{ee[i]+&lt;i,j&gt;}</p>
+</blockquote>
+</li>
+<li>
+<p>向后步骤计算事件最迟发生时间le[j]</p>
+<blockquote>
+<p>le[n-1] = ee[n-1]; le[j] = min{le[j]-&lt;i,j&gt;}</p>
+</blockquote>
+</li>
+<li>
+<p>计算活动的最早最迟时间
+若a<sub>i</sub>用边&lt;k,l&gt;表示，则</p>
+<!-- $$ 
+e[i] = ee[k]
+$$ --> 
+</li>
+</ol>
+<div align="center"><img style="background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\ynu6PWrclj.svg"></div>
+   <!-- $$
+   l[i] = le[l] - a_i
+   $$ --> 
+<div align="center"><img style="background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\vpFy1chNfk.svg"></div>
+<ol start="4">
+<li>
+<p>缩短工期</p>
+<blockquote>
+<p>只有缩短在所有关键路径上公用的关键活动才能缩短工期</p>
+</blockquote>
+</li>
+<li>
+<p>例子
+<img src="file:///c:\Users\offnet\git\DataStructureWiki\res\2021-01-16-15-45-40.png" alt=""></p>
+<p>eg:</p>
+</li>
+</ol>
+  <!-- $$
+  ee[4] = \max(ee[3]+3,ee[2]+3) = \max(15,9) = 15
+  $$ --> 
+<div align="center"><img style="background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\b43b7NgT05.svg"></div>
+  <!-- $$
+  le[3] = \min(le[6]-4,le[4]-3,le[5]-4) = \min(12,12,15) = 12
+  $$ --> 
+<div align="center"><img style="background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\OasB6V5YBu.svg"></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">i</th>
+<th style="text-align:center">ee[i]</th>
+<th style="text-align:center">le[i]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">15</td>
+<td style="text-align:center">15</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">19</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">16</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">19</td>
+<td style="text-align:center">19</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">21</td>
+<td style="text-align:center">21</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">23</td>
+<td style="text-align:center">23</td>
+</tr>
+</tbody>
+</table>
+<p>eg:</p>
+<!-- $$
+e[3] = ee[1] = 5
+$$ --> 
+<div align="center"><img style="background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\br6AmvjPhC.svg"></div>
+ <!-- $$
+ l[1]=le[1]-a_1=9-5=4
+ $$ --> 
+<div align="center"><img style="background: white;" src="file:///c:\Users\offnet\git\DataStructureWiki\svg\YuHWF1xo5B.svg"></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">a<sub>i</sub></th>
+<th style="text-align:center">e[i]</th>
+<th style="text-align:center">l[i]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2</strong></td>
+<td style="text-align:center"><strong>0</strong></td>
+<td style="text-align:center"><strong>0</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>4</strong></td>
+<td style="text-align:center"><strong>6</strong></td>
+<td style="text-align:center"><strong>6</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>6</strong></td>
+<td style="text-align:center"><strong>12</strong></td>
+<td style="text-align:center"><strong>12</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">15</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>8</strong></td>
+<td style="text-align:center"><strong>12</strong></td>
+<td style="text-align:center"><strong>12</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>9</strong></td>
+<td style="text-align:center"><strong>15</strong></td>
+<td style="text-align:center"><strong>15</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>10</strong></td>
+<td style="text-align:center"><strong>15</strong></td>
+<td style="text-align:center"><strong>15</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">19</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>12</strong></td>
+<td style="text-align:center"><strong>16</strong></td>
+<td style="text-align:center"><strong>16</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>13</strong></td>
+<td style="text-align:center"><strong>19</strong></td>
+<td style="text-align:center"><strong>19</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>14</strong></td>
+<td style="text-align:center"><strong>21</strong></td>
+<td style="text-align:center"><strong>21</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>关键活动： a<sub>2</sub>a<sub>4</sub>a<sub>6</sub>a<sub>8</sub>a<sub>9</sub>a<sub>10</sub>a<sub>12</sub>a<sub>13</sub>a<sub>14</sub></p>
+</li>
+<li>
+<p>关键路径</p>
+<ul>
+<li>2-4-8-12-14</li>
+<li>2-4-6-9-12-14</li>
+<li>2-4-6-10-13-14</li>
+</ul>
+</li>
+<li>
+<p>加速工程： 2，4，14这三个在所有的关键路径上，所以要缩短他们才能加速工程</p>
+</li>
+</ul>
+
+    </body>
+    </html>
