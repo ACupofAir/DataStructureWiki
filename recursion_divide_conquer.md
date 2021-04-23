@@ -4,17 +4,37 @@
 
 1. [基础概念](#基础概念)
    * [分治法](#分治法)
+     * [思想](#思想)
+     * [概念](#概念)
+     * [复杂度分析](#复杂度分析)
    * [递归问题](#递归问题)
 2. [问题](#问题)
    * [整数划分](#整数划分)
-     * [问题](#问题)
+     * [Question](#question)
+     * [Solution](#solution)
+   * [Hanoi塔问题](#hanoi塔问题)
+     * [Question](#question)
      * [Solution](#solution)
 
 ## 基础概念
 
 ### 分治法
-* **思想** 将一个大问题分割成规模较小的相同问题 
-
+#### 思想
+将一个大问题分割成规模较小的相同子问题,这些子问题相互独立且与原问题相同
+#### 概念
+* 问题规模: $|P|$
+* 分解阈值: 当问题规模不超过$n_0$时，问题可以直接解，无需分解，则称$n_0$为分解阈值
+#### 复杂度分析
+* 递归方程
+$$T(n)=
+\begin{cases}
+\mathcal{O}(1), n=1\\
+kT(\frac{n}{m}) + f(n), n>1\\
+\end{cases}
+$$
+* 递归树法解
+    $$T(n)= k^{\log_{m}{n}} + \sum_{j=0}^{\log_mn-1}k^jf(\frac{n}{m^j})$$
+    ![递归图](./res/divide_an_conquer.svg)
 ### 递归问题
 * **双递归函数** 一个函数及其的一个变量由函数自身定义时[Acherman函数](https://en.wikipedia.org/wiki/Ackermann_function)
 和哦
@@ -99,4 +119,8 @@
     hanoi(n, tower_a, tower_b, tower_c)
     print(f'Need move {COUNT} times')
     ```
-
+* Recursion Equation
+    $$
+    T(n) = 2T(n-1) + 1\\
+    T(1)=1
+    $$
